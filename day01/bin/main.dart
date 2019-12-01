@@ -11,5 +11,12 @@ void main(List<String> arguments) {
     return fuel(mass);
   });
 
-  print(all.sum());
+  print("Part 1 - ${all.sum()}");
+
+  final all2 = lines.map((it) {
+    final mass = int.parse(it.trim());
+    return recursiveFuel(mass);
+  });
+
+  print("Part 2 - ${all2.sum()}");
 }
