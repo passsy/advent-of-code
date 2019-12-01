@@ -1,0 +1,11 @@
+name: __projectName__
+description: Solution for Advent of Code - Day __day__
+
+environment:
+  sdk: '>=2.6.0 <3.0.0'
+
+#dependencies:
+#  path: ^1.6.0
+
+dev_dependencies:
+  lint: ^0.3.0
