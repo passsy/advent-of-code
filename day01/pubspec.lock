@@ -15,6 +15,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.39.1"
+  aoc_common:
+    dependency: "direct main"
+    description:
+      path: "../common"
+      relative: true
+    source: path
+    version: "0.0.0"
   args:
     dependency: transitive
     description:
@@ -86,7 +93,7 @@ packages:
     source: hosted
     version: "0.16.1"
   dartx:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: dartx
       url: "https://pub.dartlang.org"
@@ -156,19 +163,12 @@ packages:
     source: hosted
     version: "0.3.29"
   kt_dart:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: kt_dart
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.7.0-dev.2"
-  lint:
-    dependency: "direct dev"
-    description:
-      name: lint
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.3.2+dart205"
   logging:
     dependency: transitive
     description:
