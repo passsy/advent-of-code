@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:day01/day01.dart';
-import 'package:dartx/dartx.dart';
+import 'package:aoc_common/aoc_common.dart';
 
 void main(List<String> arguments) {
   final lines = File('input.txt').readAsStringSync().split('\n');
