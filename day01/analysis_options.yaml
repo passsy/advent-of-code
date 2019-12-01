@@ -1,0 +1,6 @@
+include: package:lint/analysis_options.yaml
+
+linter:
+  rules:
+    # results have to be printed
+    avoid_print: false
