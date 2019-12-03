@@ -5,28 +5,24 @@ import 'package:day03/day03.dart';
 
 void main(List<String> arguments) {
   final lines = File('input.txt').readAsStringSync().split('\n');
-
-  final KtList<KtList<Vector>> cables = lines
-      .map((it) {
-        return it
-            .split(',')
-            .map((it) {
-              return Vector(
-                direction: parseDirection(it.chars.first),
-                length: int.parse(it.substring(1)),
-              );
-            })
-            .toList()
-            .immutable();
-      })
-      .toList()
-      .immutable();
+  final KtList<KtList<Vector>> cables =
+      lines.map(parseCable).toList().immutable();
 
   final grid = Grid(cables);
-  final origin = Offset.zero;
-  final closest = grid.closestIntersection(origin);
-  final distance = origin.distance(closest);
+  final closest = grid.closestIntersection();
+  final distance = Offset.zero.distance(closest);
   print("Part 1 - $distance");
+  print("Part 2 - ${grid.combinedFirstIntersectionDistance()}");
+}
+
+KtList<Vector> parseCable(String input) {
+  return input.split(',').map(parseVector).toList().immutable();
+}
+
+Vector parseVector(String input) {
+  final l = int.parse(input.substring(1));
+  final d = parseDirection(input.chars.first);
+  return Vector(direction: d, length: l);
 }
 
 Direction parseDirection(String input) {

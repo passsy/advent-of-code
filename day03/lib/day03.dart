@@ -5,29 +5,35 @@ class Grid {
     _placeCables(cableVectors);
   }
 
-  final Offset origin = Offset.zero;
-
-  final KtHashMap<Offset, Set<Cable>> coordinates = KtHashMap.empty();
+  final KtMutableMap<Offset, Map<Cable, int>> coordinates = KtHashMap.empty();
 
   void _placeCables(KtList<KtList<Vector>> cableVectors) {
     cableVectors.forEachIndexed((index, vectors) {
       final cable = Cable(index);
-      var offset = origin;
+      var offset = Offset.zero;
+      var distance = 0;
       for (final vector in vectors.iter) {
         for (final _ in 1.rangeTo(vector.length)) {
+          distance++;
           offset = offset.moveInDirection(vector.direction);
-          coordinates.putIfAbsent(offset, <Cable>{});
-          final location = coordinates[offset];
-          location.add(cable);
+
+          coordinates.putIfAbsent(offset, <Cable, int>{});
+          final cables = coordinates[offset];
+          cables[cable] = distance;
         }
       }
     });
   }
 
-  Offset closestIntersection(Offset offset) => coordinates
+  Offset closestIntersection() => coordinates
       .filterValues((cables) => cables.length > 1)
-      .minBy<num>((entry) => entry.key.distance(offset))
+      .minBy<num>((entry) => entry.key.distance(Offset.zero))
       .key;
+
+  int combinedFirstIntersectionDistance() => coordinates
+      .filterValues((cables) => cables.length > 1)
+      .map((it) => coordinates[it.key].values.sum())
+      .min();
 }
 
 class Cable {

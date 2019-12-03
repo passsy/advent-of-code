@@ -3,7 +3,7 @@ import 'package:day03/day03.dart';
 import 'package:test/test.dart';
 
 void main() {
-  test("sample 1", () {
+  group('sample1', () {
     final grid = Grid(listOf(
       listOf(
         Vector(direction: Direction.right, length: 8),
@@ -18,12 +18,18 @@ void main() {
         Vector(direction: Direction.left, length: 4),
       ),
     ));
-    final closestIntersection = grid.closestIntersection(Offset.zero);
-    expect(closestIntersection, const Offset(x: 3, y: 3));
-    expect(closestIntersection.distance(Offset.zero), 6);
+    test("closest intersection", () {
+      final closestIntersection = grid.closestIntersection();
+      expect(closestIntersection, const Offset(x: 3, y: 3));
+      expect(closestIntersection.distance(Offset.zero), 6);
+    });
+    test("shortest path", () {
+      final minSteps = grid.combinedFirstIntersectionDistance();
+      expect(minSteps, 30);
+    });
   });
 
-  test("sample 2", () {
+  group("sample 2", () {
     final grid = Grid(listOf(
       listOf(
         Vector(direction: Direction.right, length: 75),
@@ -47,7 +53,53 @@ void main() {
         Vector(direction: Direction.right, length: 58),
       ),
     ));
-    final closestIntersection = grid.closestIntersection(Offset.zero);
-    expect(closestIntersection.distance(Offset.zero), 159);
+    test("closest intersection", () {
+      final closestIntersection = grid.closestIntersection();
+      expect(closestIntersection.distance(Offset.zero), 159);
+    });
+
+    test("shortest path", () {
+      final minSteps = grid.combinedFirstIntersectionDistance();
+      expect(minSteps, 610);
+    });
+  });
+
+  group("sample 3", () {
+    final grid = Grid(listOf(
+      listFrom([
+        Vector(direction: Direction.right, length: 98),
+        Vector(direction: Direction.up, length: 47),
+        Vector(direction: Direction.right, length: 26),
+        Vector(direction: Direction.down, length: 63),
+        Vector(direction: Direction.right, length: 33),
+        Vector(direction: Direction.up, length: 87),
+        Vector(direction: Direction.left, length: 62),
+        Vector(direction: Direction.down, length: 20),
+        Vector(direction: Direction.right, length: 33),
+        Vector(direction: Direction.up, length: 53),
+        Vector(direction: Direction.right, length: 51),
+      ]),
+      listOf(
+        Vector(direction: Direction.up, length: 98),
+        Vector(direction: Direction.right, length: 91),
+        Vector(direction: Direction.down, length: 20),
+        Vector(direction: Direction.right, length: 16),
+        Vector(direction: Direction.down, length: 67),
+        Vector(direction: Direction.right, length: 40),
+        Vector(direction: Direction.up, length: 7),
+        Vector(direction: Direction.right, length: 15),
+        Vector(direction: Direction.up, length: 6),
+        Vector(direction: Direction.right, length: 7),
+      ),
+    ));
+    test("closest intersection", () {
+      final closestIntersection = grid.closestIntersection();
+      expect(closestIntersection.distance(Offset.zero), 135);
+    });
+
+    test("shortest path", () {
+      final minSteps = grid.combinedFirstIntersectionDistance();
+      expect(minSteps, 410);
+    });
   });
 }
