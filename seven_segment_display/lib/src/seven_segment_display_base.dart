@@ -116,5 +116,5 @@ class SevenSegmentPanel {
 }
 
 extension SevenSegmentPanelExt on SevenSegmentPanel {
-  bool isActivated(Segment segment) => this.activatedSegments.contains(segment);
+  bool isActivated(Segment segment) => activatedSegments.contains(segment);
 }

@@ -2,7 +2,7 @@ import 'package:seven_segment_display/seven_segment_display.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('seven segment', () {
+  group('input validation', () {
     test("can't show negative numbers", () {
       expect(() => SevenSegmentPanel(-1), throwsA(isA<RangeError>()));
     });
@@ -23,72 +23,35 @@ void main() {
     });
   });
 
-  group("turns on correct segment", () {
-    test("0", () {
+  group('isActive', () {
+    test("test activation of 0", () {
       final panel = SevenSegmentPanel(0);
-      final output = displaySingleInConsole(panel);
-      expect(output, " _ \n| |\n|_|");
+      expect(panel.isActivated(Segment.top), isTrue);
+      expect(panel.isActivated(Segment.topLeft), isTrue);
+      expect(panel.isActivated(Segment.topRight), isTrue);
+      expect(panel.isActivated(Segment.middle), isFalse);
+      expect(panel.isActivated(Segment.bottomLeft), isTrue);
+      expect(panel.isActivated(Segment.bottomRight), isTrue);
+      expect(panel.isActivated(Segment.bottom), isTrue);
     });
-    test("1", () {
-      final panel = SevenSegmentPanel(1);
-      final output = displaySingleInConsole(panel);
-      expect(output, "   \n  |\n  |");
-    });
-    test("2", () {
-      final panel = SevenSegmentPanel(2);
-      final output = displaySingleInConsole(panel);
-      expect(output, " _ \n _|\n|_ ");
-    });
-    test("3", () {
+    test("switch display 3 -> 0", () {
       final panel = SevenSegmentPanel(3);
-      final output = displaySingleInConsole(panel);
-      expect(output, " _ \n _|\n _|");
-    });
-    test("4", () {
-      final panel = SevenSegmentPanel(4);
-      final output = displaySingleInConsole(panel);
-      expect(output, "   \n|_|\n  |");
-    });
-    test("5", () {
-      final panel = SevenSegmentPanel(5);
-      final output = displaySingleInConsole(panel);
-      expect(output, " _ \n|_ \n _|");
-    });
-    test("6", () {
-      final panel = SevenSegmentPanel(6);
-      final output = displaySingleInConsole(panel);
-      expect(output, " _ \n|_ \n|_|");
-    });
-    test("7", () {
-      final panel = SevenSegmentPanel(7);
-      final output = displaySingleInConsole(panel);
-      expect(output, " _ \n  |\n  |");
-    });
-    test("8", () {
-      final panel = SevenSegmentPanel(8);
-      final output = displaySingleInConsole(panel);
-      expect(output, " _ \n|_|\n|_|");
-    });
-    test("9", () {
-      final panel = SevenSegmentPanel(9);
-      final output = displaySingleInConsole(panel);
-      expect(output, " _ \n|_|\n _|");
-    });
-  });
+      expect(panel.isActivated(Segment.top), isTrue);
+      expect(panel.isActivated(Segment.topLeft), isFalse);
+      expect(panel.isActivated(Segment.topRight), isTrue);
+      expect(panel.isActivated(Segment.middle), isTrue);
+      expect(panel.isActivated(Segment.bottomLeft), isFalse);
+      expect(panel.isActivated(Segment.bottomRight), isTrue);
+      expect(panel.isActivated(Segment.bottom), isTrue);
 
-  group("print multiple chars", () {
-    test("0123456789", () {
-      final chars = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((it) => SevenSegmentPanel(it)).toList();
-      final console = displayInConsole(chars);
-      print(console);
-      expect(
-          console, " _     _  _     _  _  _  _  _ \n| |  | _| _||_||_ |_   ||_||_|\n|_|  ||_  _|  | _||_|  ||_| _|\n");
-    });
-    test("Rosi 32168", () {
-      final chars = [3, 2, 1, 6, 8].map((it) => SevenSegmentPanel(it)).toList();
-      final console = displayInConsole(chars);
-      print(console);
-      expect(console, " _  _     _  _ \n _| _|  ||_ |_|\n _||_   ||_||_|\n");
+      panel.display(0);
+      expect(panel.isActivated(Segment.top), isTrue);
+      expect(panel.isActivated(Segment.topLeft), isTrue);
+      expect(panel.isActivated(Segment.topRight), isTrue);
+      expect(panel.isActivated(Segment.middle), isFalse);
+      expect(panel.isActivated(Segment.bottomLeft), isTrue);
+      expect(panel.isActivated(Segment.bottomRight), isTrue);
+      expect(panel.isActivated(Segment.bottom), isTrue);
     });
   });
 }
