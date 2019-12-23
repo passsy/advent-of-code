@@ -4,3 +4,6 @@ linter:
   rules:
     # results have to be printed
     avoid_print: false
+
+    # no package:meta dependency
+    always_require_non_null_named_parameters: false
