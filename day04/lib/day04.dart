@@ -1,15 +1,6 @@
 import 'package:aoc_common/aoc_common.dart';
 import 'package:dartx/dartx.dart';
 
-List<int> possiblePasswords(int start, int end) {
-  return start
-      .rangeTo(end)
-      .filter((it) => it.isSixDigitNumber)
-      .filter((it) => it.hasDoubleDigit)
-      .filter((it) => it.neverDecreases)
-      .toList();
-}
-
 extension Criteria on int {
   bool get isSixDigitNumber {
     return this > 99999 && this < 1000000;
@@ -27,6 +18,20 @@ extension Criteria on int {
         s.contains("77") ||
         s.contains("88") ||
         s.contains("99");
+  }
+
+  bool get hasDoubleDigitButNoTriple {
+    final s = this.toString();
+    return s.contains("00") && !s.contains("000") ||
+        s.contains("11") && !s.contains("111") ||
+        s.contains("22") && !s.contains("222") ||
+        s.contains("33") && !s.contains("333") ||
+        s.contains("44") && !s.contains("444") ||
+        s.contains("55") && !s.contains("555") ||
+        s.contains("66") && !s.contains("666") ||
+        s.contains("77") && !s.contains("777") ||
+        s.contains("88") && !s.contains("888") ||
+        s.contains("99") && !s.contains("999");
   }
 
   bool get neverDecreases {
