@@ -38,4 +38,10 @@ void main() {
     interpreter.input(9);
     expect(interpreter.output(), 9);
   });
+
+  test("negateive values", () {
+    final interpreter = Interpreter(mutableListFrom([1101, 100, -1, 4, 0]));
+    interpreter.run();
+    expect(interpreter.memoryDump[4], 99);
+  });
 }

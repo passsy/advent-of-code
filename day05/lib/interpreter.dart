@@ -1,6 +1,8 @@
 import 'package:aoc_common/aoc_common.dart';
 import 'package:dartx/dartx.dart';
 
+const bool debug = false;
+
 class Interpreter {
   Interpreter(KtList<int> program) : _memory = program.toMutableList();
   final KtMutableList<int> _memory;
@@ -32,6 +34,7 @@ class Interpreter {
 
   void input(int input) {
     assert(awaitingInput == true);
+    if (debug) print("Received input $input");
     _input = input;
     run();
   }
@@ -58,13 +61,15 @@ class Interpreter {
       // add
       case 1:
         assert(modeP3 == 0);
-        _memory[param3()] = param1() + param2();
+        if (debug) print("(1) \$${_relative(3)} = ${param1()} + ${param2()}");
+        _memory[_relative(3)] = param1() + param2();
         _pointer += 4;
         return;
       // multiply
       case 2:
         assert(modeP3 == 0);
-        _memory[param3()] = param1() * param2();
+        if (debug) print("(2) \$${_relative(3)} = ${param1()} * ${param2()}");
+        _memory[_relative(3)] = param1() * param2();
         _pointer += 4;
         return;
       // wait for input
@@ -73,18 +78,22 @@ class Interpreter {
           assert(_input != null);
           awaitingInput = false;
           _memory[_relative(1)] = _input;
+          if (debug) print("(3) Writing input $_input to \$${_relative(1)}");
           _input = null;
           _pointer += 2;
         } else {
+          if (debug) print("(3) waiting for input");
           awaitingInput = true;
         }
         return;
       // write output
       case 4:
         _output = _memory[_relative(1)];
+        if (debug) print("(4) Output: $_output");
         _pointer += 2;
         return;
       case 99:
+        if (debug) print("(99) HALT");
         finished = true;
         return;
       default:
