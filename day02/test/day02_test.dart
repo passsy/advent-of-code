@@ -1,4 +1,4 @@
-import 'package:day01/day01.dart';
+import 'package:day02/day02.dart';
 import 'package:test/test.dart';
 
 void main() {
