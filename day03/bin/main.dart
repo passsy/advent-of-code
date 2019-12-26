@@ -5,8 +5,7 @@ import 'package:day03/day03.dart';
 
 void main(List<String> arguments) {
   final lines = File('input.txt').readAsStringSync().split('\n');
-  final KtList<KtList<Vector>> cables =
-      lines.map(parseCable).toList().immutable();
+  final KtList<KtList<Vector>> cables = lines.map(parseCable).toList().toImmutableList();
 
   final grid = Grid(cables);
   final closest = grid.closestIntersection();
@@ -16,7 +15,7 @@ void main(List<String> arguments) {
 }
 
 KtList<Vector> parseCable(String input) {
-  return input.split(',').map(parseVector).toList().immutable();
+  return input.split(',').map(parseVector).toList().toImmutableList();
 }
 
 Vector parseVector(String input) {
