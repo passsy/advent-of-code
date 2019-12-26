@@ -1,5 +1,4 @@
-name: __packageName__
-description: Solution for Advent of Code - Day __day__
+name: day{{cookiecutter.day}}
 
 environment:
   sdk: '>=2.6.0 <3.0.0'

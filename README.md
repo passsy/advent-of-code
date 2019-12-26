@@ -5,3 +5,17 @@
 This repository contains the (work in progress) solutions written in Dart by me ([@passsy](https://twitter.com/passsy)).
 
 While solving the puzzles my main goal is to work with the [kt_dart](https://github.com/passsy/kt.dart/) and [dartx](https://github.com/leisim/dartx) packages to find missing APIs and to challenge existing ones.
+
+## Generate a project template
+
+
+### Prerequisite 
+```
+pip install cookiecutter
+```
+
+### Generate
+```
+# generate a new project for Day 5
+./generate.sh 05
+```
