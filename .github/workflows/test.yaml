@@ -1,0 +1,34 @@
+name: Test
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-18.04
+
+    container:
+      image: google/dart:2.7
+
+    steps:
+      - uses: actions/checkout@master
+      - run: |
+          cd day01
+          pub get
+          pub run test
+          dartanalyzer --fatal-infos --fatal-warnings .
+      - run: |
+          cd day02
+          pub get
+          pub run test
+          dartanalyzer --fatal-infos --fatal-warnings .
+      - run: |
+          cd day03
+          pub get
+          pub run test
+          dartanalyzer --fatal-infos --fatal-warnings .
+      - run: |
+          cd day04
+          pub get
+          pub run test
+          dartanalyzer --fatal-infos --fatal-warnings .
