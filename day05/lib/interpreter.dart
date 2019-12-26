@@ -1,4 +1,5 @@
 import 'package:aoc_common/aoc_common.dart';
+import 'package:dartx/dartx.dart';
 
 class Interpreter {
   Interpreter(KtList<int> program) : _memory = program.toMutableList();
@@ -40,15 +41,33 @@ class Interpreter {
   }
 
   void _execute(int opcode) {
-    switch (opcode) {
+    final op = opcode.remainder(100).toInt();
+    final chars = opcode.toString().reversed.chars.toList().kt;
+    // mode 0 = position mode
+    // mode 1 = immediate mode
+    final modeP1 = chars.getOrNull(2)?.toIntOrNull() ?? 0;
+    final modeP2 = chars.getOrNull(3)?.toIntOrNull() ?? 0;
+    final modeP3 = chars.getOrNull(4)?.toIntOrNull() ?? 0;
+
+    /// params depending on mode
+    int param1() => modeP1 == 0 ? _memory[_relative(1)] : _relative(1);
+    int param2() => modeP2 == 0 ? _memory[_relative(2)] : _relative(2);
+    int param3() => modeP3 == 0 ? _memory[_relative(3)] : _relative(3);
+
+    switch (op) {
+      // add
       case 1:
-        _memory[_relative(3)] = _memory[_relative(1)] + _memory[_relative(2)];
+        assert(modeP3 == 0);
+        _memory[param3()] = param1() + param2();
         _pointer += 4;
         return;
+      // multiply
       case 2:
-        _memory[_relative(3)] = _memory[_relative(1)] * _memory[_relative(2)];
+        assert(modeP3 == 0);
+        _memory[param3()] = param1() * param2();
         _pointer += 4;
         return;
+      // wait for input
       case 3:
         if (awaitingInput) {
           assert(_input != null);
@@ -60,9 +79,9 @@ class Interpreter {
           awaitingInput = true;
         }
         return;
+      // write output
       case 4:
-        final address = _relative(1);
-        _output = _memory[address];
+        _output = _memory[_relative(1)];
         _pointer += 2;
         return;
       case 99:
