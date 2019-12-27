@@ -61,7 +61,7 @@ class Interpreter {
       // add
       case 1:
         assert(modeP3 == 0);
-        if (debug) print("(1) \$${_relative(3)} = ${param1()} + ${param2()}");
+        if (debug) print("(1) &${_relative(3)} = ${param1()} + ${param2()}");
         _memory[_relative(3)] = param1() + param2();
         _pointer += 4;
         return;
@@ -78,7 +78,7 @@ class Interpreter {
           assert(_input != null);
           awaitingInput = false;
           _memory[_relative(1)] = _input;
-          if (debug) print("(3) Writing input $_input to \$${_relative(1)}");
+          if (debug) print("(3) Writing input $_input to &${_relative(1)}");
           _input = null;
           _pointer += 2;
         } else {
@@ -88,10 +88,61 @@ class Interpreter {
         return;
       // write output
       case 4:
-        _output = _memory[_relative(1)];
+        if (modeP1 == 1) {
+          _output = _relative(1);
+        } else {
+          _output = _memory[_relative(1)];
+        }
         if (debug) print("(4) Output: $_output");
         _pointer += 2;
         return;
+      // jump if true
+      case 5:
+        if (param1() != 0) {
+          _pointer = param2();
+          if (debug) print("(5) Jump to: $_pointer");
+        } else {
+          _pointer += 3;
+          if (debug) print("(5) Do not Jump ${param1()} != 0");
+        }
+        return;
+      // jump if false
+      case 6:
+        if (param1() == 0) {
+          _pointer = param2();
+          if (debug) print("(6) Jump to: $_pointer");
+        } else {
+          _pointer += 3;
+          if (debug) print("(6) Do not Jump ${param1()} == 0");
+        }
+        return;
+      // less than
+      case 7:
+        final smaller = param1() < param2();
+        if (debug) {
+          if (smaller) {
+            print("(7) ${param1()} < ${param2()}, write 1 to &${_relative(3)}");
+          } else {
+            print("(7) ${param1()} < ${param2()} (NOT), write 0 to &${_relative(3)}");
+          }
+        }
+        _memory[_relative(3)] = smaller ? 1 : 0;
+        _pointer += 4;
+        return;
+      // equals
+      case 8:
+        final equal = param1() == param2();
+        if (debug) {
+          if (equal) {
+            print("(7) ${param1()} == ${param2()}, write 1 to &${_relative(3)}");
+          } else {
+            print("(7) ${param1()} != ${param2()}, write 0 to &${_relative(3)}");
+          }
+        }
+        _memory[_relative(3)] = equal ? 1 : 0;
+        _pointer += 4;
+        return;
+      // halt program
       case 99:
         if (debug) print("(99) HALT");
         finished = true;
