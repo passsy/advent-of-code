@@ -13,17 +13,18 @@ class Interpreter {
 
   bool awaitingInput = false;
 
-  int _input = null;
+  int _input;
 
-  int _output = null;
+  int _output;
 
-  bool finished = false;
+  bool _finished = false;
 
   void run() {
     if (!_memory.contains(99)) {
-      print("Warning, Intcode doesn't contain exit code 99. Make sure it is comuted at runtime");
+      print(
+          "Warning, Intcode doesn't contain exit code 99. Make sure it is comuted at runtime");
     }
-    while (!finished) {
+    while (!_finished) {
       final op = _memory[_pointer];
       _execute(op);
       if (awaitingInput) {
@@ -34,6 +35,7 @@ class Interpreter {
 
   void input(int input) {
     assert(awaitingInput == true);
+    assert(_input == null);
     if (debug) print("Received input $input");
     _input = input;
     run();
@@ -55,6 +57,7 @@ class Interpreter {
     /// params depending on mode
     int param1() => modeP1 == 0 ? _memory[_relative(1)] : _relative(1);
     int param2() => modeP2 == 0 ? _memory[_relative(2)] : _relative(2);
+    // ignore: unused_element
     int param3() => modeP3 == 0 ? _memory[_relative(3)] : _relative(3);
 
     switch (op) {
@@ -123,7 +126,8 @@ class Interpreter {
           if (smaller) {
             print("(7) ${param1()} < ${param2()}, write 1 to &${_relative(3)}");
           } else {
-            print("(7) ${param1()} < ${param2()} (NOT), write 0 to &${_relative(3)}");
+            print(
+                "(7) ${param1()} < ${param2()} (NOT), write 0 to &${_relative(3)}");
           }
         }
         _memory[_relative(3)] = smaller ? 1 : 0;
@@ -134,9 +138,11 @@ class Interpreter {
         final equal = param1() == param2();
         if (debug) {
           if (equal) {
-            print("(7) ${param1()} == ${param2()}, write 1 to &${_relative(3)}");
+            print(
+                "(7) ${param1()} == ${param2()}, write 1 to &${_relative(3)}");
           } else {
-            print("(7) ${param1()} != ${param2()}, write 0 to &${_relative(3)}");
+            print(
+                "(7) ${param1()} != ${param2()}, write 0 to &${_relative(3)}");
           }
         }
         _memory[_relative(3)] = equal ? 1 : 0;
@@ -145,7 +151,7 @@ class Interpreter {
       // halt program
       case 99:
         if (debug) print("(99) HALT");
-        finished = true;
+        _finished = true;
         return;
       default:
         throw "Unknown op code $opcode";
