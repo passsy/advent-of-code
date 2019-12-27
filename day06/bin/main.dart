@@ -15,5 +15,8 @@ void main(List<String> arguments) {
       .toImmutableList();
 
   print("Part 1 - ${orbitCountChecksum(map)}");
-  print("Part 2 - ${part2()}");
+
+  final santa = AstronomicalObject("SAN");
+  final me = AstronomicalObject("YOU");
+  print("Part 2 - ${orbitalTransfers(map, santa, me)}");
 }

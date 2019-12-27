@@ -5,23 +5,31 @@ import 'package:test/test.dart';
 void main() {
   group('part 1', () {
     test('sample 1', () {
-      final map = listFrom([
-        OrbitingRelationship.named("COM", "B"),
-        OrbitingRelationship.named("B", "C"),
-        OrbitingRelationship.named("C", "D"),
-        OrbitingRelationship.named("D", "E"),
-        OrbitingRelationship.named("E", "F"),
-        OrbitingRelationship.named("B", "G"),
-        OrbitingRelationship.named("G", "H"),
-        OrbitingRelationship.named("D", "I"),
-        OrbitingRelationship.named("E", "J"),
-        OrbitingRelationship.named("J", "K"),
-        OrbitingRelationship.named("K", "L"),
-      ]);
-      expect(orbitCountChecksum(map), 42);
+      expect(orbitCountChecksum(sampleMap), 42);
     });
     test('sample 2', () {
-      expect(() => part2(), throwsA(isA<String>()));
+      final me = AstronomicalObject("YOU");
+      final santa = AstronomicalObject("SAN");
+
+      final map = sampleMap
+          .plusElement(OrbitingRelationship.named("K", me.name))
+          .plusElement(OrbitingRelationship.named("I", santa.name));
+
+      expect(orbitalTransfers(map, me, santa), 4);
     });
   });
 }
+
+final sampleMap = listFrom([
+  OrbitingRelationship.named("COM", "B"),
+  OrbitingRelationship.named("B", "C"),
+  OrbitingRelationship.named("C", "D"),
+  OrbitingRelationship.named("D", "E"),
+  OrbitingRelationship.named("E", "F"),
+  OrbitingRelationship.named("B", "G"),
+  OrbitingRelationship.named("G", "H"),
+  OrbitingRelationship.named("D", "I"),
+  OrbitingRelationship.named("E", "J"),
+  OrbitingRelationship.named("J", "K"),
+  OrbitingRelationship.named("K", "L"),
+]);
