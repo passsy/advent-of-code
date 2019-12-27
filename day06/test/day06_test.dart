@@ -20,7 +20,7 @@ void main() {
   });
 }
 
-final sampleMap = listFrom([
+final KtList<OrbitingRelationship> sampleMap = listFrom([
   OrbitingRelationship.named("COM", "B"),
   OrbitingRelationship.named("B", "C"),
   OrbitingRelationship.named("C", "D"),

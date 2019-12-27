@@ -4,16 +4,6 @@ int orbitCountChecksum(KtList<OrbitingRelationship> map) {
   return map.sumBy((it) => map.parentCount(it.orbiting));
 }
 
-extension MapExt on KtList<OrbitingRelationship> {
-  int parentCount(AstronomicalObject o) => parents(o).size;
-
-  KtList<AstronomicalObject> parents(AstronomicalObject o) {
-    final parent = firstOrNull((it) => it.orbiting == o);
-    if (parent == null) return emptyList();
-    return parents(parent.center).plusElement(parent.center);
-  }
-}
-
 int orbitalTransfers(KtList<OrbitingRelationship> map, AstronomicalObject from,
     AstronomicalObject to) {
   final parentsFrom = map.parents(from);
@@ -22,6 +12,16 @@ int orbitalTransfers(KtList<OrbitingRelationship> map, AstronomicalObject from,
   final intersection = parentsFrom.intersect(parentsTo);
   final complement = union - intersection;
   return complement.size;
+}
+
+extension _MapExt on KtList<OrbitingRelationship> {
+  int parentCount(AstronomicalObject o) => parents(o).size;
+
+  KtList<AstronomicalObject> parents(AstronomicalObject o) {
+    final parent = firstOrNull((it) => it.orbiting == o);
+    if (parent == null) return emptyList();
+    return parents(parent.center).plusElement(parent.center);
+  }
 }
 
 class OrbitingRelationship {
