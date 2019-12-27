@@ -10,25 +10,14 @@ jobs:
     container:
       image: google/dart:2.7
 
+    strategy:
+      matrix:
+        day: [01, 02, 03, 04, 05]
+
     steps:
       - uses: actions/checkout@master
       - run: |
-          cd day01
-          pub get
-          pub run test
-          dartanalyzer --fatal-infos --fatal-warnings .
-      - run: |
-          cd day02
-          pub get
-          pub run test
-          dartanalyzer --fatal-infos --fatal-warnings .
-      - run: |
-          cd day03
-          pub get
-          pub run test
-          dartanalyzer --fatal-infos --fatal-warnings .
-      - run: |
-          cd day04
+          cd day${{ matrix.day }}
           pub get
           pub run test
           dartanalyzer --fatal-infos --fatal-warnings .
