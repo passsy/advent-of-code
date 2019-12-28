@@ -19,23 +19,36 @@ class Amplifier {
   final int phase;
   final Interpreter _interpreter;
 
-  int run(int input) {
+  bool get finished => _interpreter.finished;
+
+  void init() {
     _interpreter.run();
     _interpreter.input(phase);
+  }
+
+  int input(int input) {
     _interpreter.input(input);
     return _interpreter.output();
   }
 }
 
 class AmpSeries {
-  AmpSeries(this.amplifiers);
+  const AmpSeries({
+    this.amplifiers,
+    this.loop = false,
+  });
 
   final KtList<Amplifier> amplifiers;
+  final bool loop;
 
   int signal() {
     int lastSignal = 0;
-    for (final a in amplifiers.iter) {
-      lastSignal = a.run(lastSignal);
+    amplifiers.forEach((it) => it.init());
+    while (!amplifiers.last().finished) {
+      for (final a in amplifiers.iter) {
+        lastSignal = a.input(lastSignal);
+      }
+      if (!loop) break;
     }
     return lastSignal;
   }

@@ -17,6 +17,8 @@ class Interpreter {
 
   int _output;
 
+  bool get finished => _finished;
+
   bool _finished = false;
 
   void run() {
