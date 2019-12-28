@@ -1,0 +1,13 @@
+name: day07
+
+environment:
+  sdk: '>=2.6.0 <3.0.0'
+
+dependencies:
+  aoc_common:
+    path: ../common
+  trotter: ^1.1.0
+
+dev_dependencies:
+  test: ^1.6.0
+  lint: ^0.3.0
