@@ -16,8 +16,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@master
-      - run: |
-          cd day${{ matrix.day }}
-          pub get
-          pub run test
-          dartanalyzer --fatal-infos --fatal-warnings .
+      - run: pub get
+        working-directory: day${{ matrix.day }}
+      - name: Test
+        run: pub run test
+        working-directory: day${{ matrix.day }}
+      - name: Lint
+        run: dartanalyzer --fatal-infos --fatal-warnings .
+        working-directory: day${{ matrix.day }}
