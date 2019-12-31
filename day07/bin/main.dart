@@ -9,7 +9,6 @@ void main(List<String> arguments) {
       .readAsStringSync()
       .split(',')
       .map((it) => it.toInt())
-      .toList()
       .toImmutableList();
 
   final phases = listOf(0, 1, 2, 3, 4);
@@ -19,7 +18,6 @@ void main(List<String> arguments) {
   final signals = combinations.map((settings) {
     final amps = settings
         .map((it) => Amplifier(code: program, phase: it))
-        .toList()
         .toImmutableList();
     final series = AmpSeries(amplifiers: amps);
     return series.signal();
@@ -36,7 +34,6 @@ void main(List<String> arguments) {
   final signals2 = combinations2.map((settings) {
     final amps = settings
         .map((it) => Amplifier(code: program, phase: it))
-        .toList()
         .toImmutableList();
     final series = AmpSeries(amplifiers: amps, loop: true);
     return series.signal();

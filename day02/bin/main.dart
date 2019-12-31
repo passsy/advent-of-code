@@ -4,7 +4,11 @@ import 'package:aoc_common/aoc_common.dart';
 import 'package:day02/day02.dart';
 
 void main(List<String> arguments) {
-  final program = File('input.txt').readAsStringSync().split(',').map((it) => it.toInt()).toList().toImmutableList();
+  final program = File('input.txt')
+      .readAsStringSync()
+      .split(',')
+      .map((it) => it.toInt())
+      .toImmutableList();
 
   KtList<int> reproduceCrash(int noun, int verb) {
     final p = program.toMutableList();

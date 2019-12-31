@@ -27,7 +27,7 @@ class Grid {
 
   Offset closestIntersection() => coordinates
       .filterValues((cables) => cables.length > 1)
-      .minBy<num>((entry) => entry.key.distance(Offset.zero))
+      .minBy((entry) => entry.key.distance(Offset.zero))
       .key;
 
   int combinedFirstIntersectionDistance() => coordinates
