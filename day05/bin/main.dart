@@ -4,7 +4,11 @@ import 'package:aoc_common/aoc_common.dart';
 import 'package:day05/interpreter.dart';
 
 void main(List<String> arguments) {
-  final program = File('input.txt').readAsStringSync().split(',').map((it) => it.toInt()).toList().toImmutableList();
+  final program = File('input.txt')
+      .readAsStringSync()
+      .split(',')
+      .map((it) => it.toInt())
+      .toImmutableList();
 
   final interpreter = Interpreter(program)..run();
   interpreter.input(1);

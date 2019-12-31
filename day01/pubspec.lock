@@ -95,9 +95,11 @@ packages:
   dartx:
     dependency: transitive
     description:
-      name: dartx
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "."
+      ref: d3d4dcbede77aae8aec561a655efeebf6e972758
+      resolved-ref: d3d4dcbede77aae8aec561a655efeebf6e972758
+      url: "https://github.com/leisim/dartx.git"
+    source: git
     version: "0.2.0"
   front_end:
     dependency: transitive
@@ -168,7 +170,7 @@ packages:
       name: kt_dart
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.7.0-dev.2"
+    version: "0.7.0-dev.4"
   lint:
     dependency: "direct dev"
     description:
@@ -274,13 +276,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.4.2"
-  quiver:
-    dependency: transitive
-    description:
-      name: quiver
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.5"
   shelf:
     dependency: transitive
     description:

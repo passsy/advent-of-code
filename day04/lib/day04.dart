@@ -36,12 +36,12 @@ extension Criteria on int {
 
   bool get neverDecreases {
     final chars = toString().chars;
-    final windows = chars.kt.windowed(2).dart;
-    final notDecreasing = windows.where((pair) {
+    final windows = chars.kt.windowed(2);
+    final notDecreasing = windows.filter((pair) {
       final first = pair[0].toInt();
       final second = pair[1].toInt();
       return first <= second;
-    }).toList();
-    return windows.length == notDecreasing.length;
+    });
+    return windows.size == notDecreasing.size;
   }
 }

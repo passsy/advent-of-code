@@ -170,7 +170,7 @@ packages:
       name: kt_dart
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.7.0-dev.3"
+    version: "0.7.0-dev.4"
   lint:
     dependency: "direct dev"
     description:
